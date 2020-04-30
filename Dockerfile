@@ -49,10 +49,10 @@ ARG GID=991
 RUN set -eux; \
     \
     echo "Etc/UTC" > /etc/localtime; \
-    chmod a+x /wait-for; \
     addgroup --gid ${GID} mastodon; \
     useradd -m -u ${UID} -g ${GID} -d /opt/mastodon mastodon; \
     echo "mastodon:`head /dev/urandom | tr -dc A-Za-z0-9 | head -c 24 | mkpasswd -s -m sha-256`" | chpasswd; \
+    chown -R mastodon:mastodon /opt/mastodon; \
     cd /opt/mastodon; \
     ln -s /opt/mastodon /mastodon
 
